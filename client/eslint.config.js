@@ -26,4 +26,11 @@ export default defineConfig([
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
   },
+  {
+    // Test harness — re-exports app internals for assertions, so the
+    // fast-refresh "components only" rule doesn't apply.
+    files: ['test/**/*.{js,jsx,mjs}'],
+    languageOptions: { globals: globals.node },
+    rules: { 'react-refresh/only-export-components': 'off' },
+  },
 ])

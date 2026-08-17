@@ -8,14 +8,23 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "npm run build && rsync -avz --progress dist/ $VPS_USER@$VPS_HOST:/var/www/phoenix-learning/"
+    "deploy": "npm run build && rsync -avz --delete dist/ rugrents:/var/www/phoenix.draigan.com/ && ssh rugrents 'chown -R www-data:www-data /var/www/phoenix.draigan.com'",
+    "test:map": "vite build --ssr test/render-entry.jsx --outDir node_modules/.map-test --logLevel error && node test/worldtour.test.mjs"
   },
   "dependencies": {
+    "cesium": "^1.140.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "globe.gl": "^2.45.3",
+    "prop-types": "^15.8.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "tailwind-merge": "^3.4.0"
+    "react-router-dom": "^7.14.2",
+    "react-simple-maps": "^3.0.0",
+    "resium": "^1.21.0",
+    "tailwind-merge": "^3.4.0",
+    "vite-plugin-cesium": "^1.2.23",
+    "world-atlas": "^2.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

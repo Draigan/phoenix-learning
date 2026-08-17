@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Baloo+2:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  :root {
+  :root,
+  [data-theme="light"] {
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
@@ -26,7 +29,7 @@
     --radius: 0.5rem;
   }
 
-  .dark {
+  [data-theme="dark"] {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
     --card: 0 0% 3.9%;
@@ -47,57 +50,172 @@
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
   }
-}
 
-@layer base {
+  [data-theme="ocean"] {
+    --background: 213 60% 8%;
+    --foreground: 204 80% 96%;
+    --card: 213 55% 11%;
+    --card-foreground: 204 80% 96%;
+    --popover: 213 55% 11%;
+    --popover-foreground: 204 80% 96%;
+    --primary: 199 89% 55%;
+    --primary-foreground: 213 60% 8%;
+    --secondary: 213 45% 16%;
+    --secondary-foreground: 204 80% 96%;
+    --muted: 213 45% 16%;
+    --muted-foreground: 210 30% 60%;
+    --accent: 213 45% 20%;
+    --accent-foreground: 204 80% 96%;
+    --destructive: 0 62.8% 45%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 213 40% 20%;
+    --input: 213 40% 20%;
+    --ring: 199 89% 55%;
+    --radius: 0.5rem;
+  }
+
+  [data-theme="candy"] {
+    --background: 300 60% 99%;
+    --foreground: 280 40% 15%;
+    --card: 300 50% 97%;
+    --card-foreground: 280 40% 15%;
+    --popover: 300 50% 97%;
+    --popover-foreground: 280 40% 15%;
+    --primary: 316 73% 52%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 290 50% 93%;
+    --secondary-foreground: 280 40% 20%;
+    --muted: 290 40% 93%;
+    --muted-foreground: 290 20% 50%;
+    --accent: 290 50% 91%;
+    --accent-foreground: 280 40% 20%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 290 30% 86%;
+    --input: 290 30% 86%;
+    --ring: 316 73% 52%;
+    --radius: 0.75rem;
+  }
+
+  [data-theme="forest"] {
+    --background: 138 50% 5%;
+    --foreground: 120 20% 96%;
+    --card: 138 45% 8%;
+    --card-foreground: 120 20% 96%;
+    --popover: 138 45% 8%;
+    --popover-foreground: 120 20% 96%;
+    --primary: 142 71% 48%;
+    --primary-foreground: 138 50% 5%;
+    --secondary: 138 35% 13%;
+    --secondary-foreground: 120 20% 96%;
+    --muted: 138 35% 13%;
+    --muted-foreground: 130 20% 55%;
+    --accent: 138 35% 17%;
+    --accent-foreground: 120 20% 96%;
+    --destructive: 0 62.8% 45%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 138 30% 18%;
+    --input: 138 30% 18%;
+    --ring: 142 71% 48%;
+    --radius: 0.5rem;
+  }
+
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
 
-/* Landscape Mode Optimizations for Tablets */
+/* Fonts */
+[data-font="nunito"] { font-family: 'Nunito', sans-serif; }
+[data-font="baloo"]  { font-family: 'Baloo 2', sans-serif; }
+
+/* Streak pop */
+@keyframes streakPop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.5); }
+  70%  { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+/* Settings long-press ring */
+@keyframes fillRing {
+  from { stroke-dashoffset: 113; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* Star burst — outward from center */
+@keyframes starFly {
+  0%   { transform: translate(0, 0) scale(0) rotate(0deg); opacity: 1; }
+  60%  { opacity: 1; }
+  100% { transform: translate(var(--tx), var(--ty)) scale(1) rotate(var(--rot)); opacity: 0; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.45; transform: scale(0.9); }
+  50%      { opacity: 1; transform: scale(1.15); }
+}
+
+@keyframes cloudDrift {
+  from { transform: translateX(-18px); }
+  to   { transform: translateX(18px); }
+}
+
+@keyframes blastPop {
+  0%   { transform: translate(-50%, -50%) scale(0.3); opacity: 0; }
+  35%  { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1.75); opacity: 0; }
+}
+
+/* Shake animation for wrong answers */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-8px); }
+  40%       { transform: translateX(8px); }
+  60%       { transform: translateX(-6px); }
+  80%       { transform: translateX(6px); }
+}
+
+/* Layout */
 html, body, #root {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
-/* Lock to landscape orientation */
-@media screen and (orientation: portrait) {
-  body::before {
-    content: "Please rotate your device to landscape mode";
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: hsl(var(--background));
-    color: hsl(var(--foreground));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    font-size: 1.5rem;
-    text-align: center;
-    padding: 2rem;
-  }
-
-  #root {
-    display: none;
-  }
+/* Prevent text selection and drag-to-highlight everywhere */
+* {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
-/* Optimize for landscape tablets */
-@media screen and (orientation: landscape) and (min-width: 768px) {
+/* Full-bleed app layout. Deliberately not orientation-locked — the app is
+   designed for landscape but must stay usable if the tablet is held upright. */
+@media screen and (min-width: 768px) {
   #root {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    width: 100vw;
+    height: 100dvh;
+    width: 100dvw;
+    position: fixed;
+    inset: 0;
   }
+}
+
+/* World Tour hint — the country being looked for pulses so it reads as "over
+   here", not just a recoloured country. Colours mirror HINT_COLOR /
+   HINT_PULSE_COLOR in src/lib/mapConfig.js. */
+@keyframes hintPulse {
+  0%, 100% { fill: #4c1d95; }
+  50%      { fill: #e9d5ff; }
+}
+
+.hint-pulse {
+  animation: hintPulse 0.75s ease-in-out infinite;
 }
